@@ -6,15 +6,15 @@ import { Component, h } from '@stencil/core';
 export class AppHelp {
   render() {
     return [
-      <ion-header>
-        <ion-toolbar color="primary">
-          <ion-buttons slot="start">
-            <ion-back-button defaultHref="/" />
-          </ion-buttons>
-          <ion-title>Help</ion-title>
-        </ion-toolbar>
-      </ion-header>,
-      <ion-content fullscreen class="ion-padding">
+        <ion-header>
+          <ion-toolbar color="primary">
+            <ion-buttons slot="start">
+              <ion-back-button defaultHref="/" />
+            </ion-buttons>
+            <ion-title>Help</ion-title>
+          </ion-toolbar>
+        </ion-header>,
+        <ion-content fullscreen class="ion-padding">
         <h1>Available Actions:</h1>
         <ion-list>
           <ion-item lines="none">

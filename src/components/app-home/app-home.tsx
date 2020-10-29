@@ -111,7 +111,7 @@ export class AppHome {
     ];
   }
 
-  getTagCountDone() {
+  getTagCountDone():number {
     return this.tags.filter(x => x.done).length;
   }
 
@@ -119,7 +119,7 @@ export class AppHome {
     if (!this.tags || !this.tags.length) {
       return 0;
     }
-    return this.getTagCountDone() / this.tags.length
+    return parseFloat((this.getTagCountDone() / this.tags.length).toFixed(2));
   }
 
   toggleVisibility() {
@@ -162,7 +162,7 @@ export class AppHome {
           <ion-item>
             <ion-icon name="add" slot="start"></ion-icon>
             <ion-label position="floating">Tag</ion-label>
-            <ion-input onFocus={() => this.tagList.closeSlidingItems()} ref={el => (this.inputEl = el)} onChange={() => this.addTag()} />
+            <ion-input inputmode="numeric" onFocus={() => this.tagList.closeSlidingItems()} ref={el => (this.inputEl = el)} onChange={() => this.addTag()} />
           </ion-item>
         </ion-list>
         <ion-list ref={el => (this.tagList = el as HTMLIonListElement)}>
@@ -187,7 +187,7 @@ export class AppHome {
         </ion-list>
       </ion-content>,
       <ion-footer>
-      <ion-progress-bar color="primary" value={this.getTagPercentDone()}></ion-progress-bar>,
+      <ion-progress-bar color="primary" value={this.getTagPercentDone()}></ion-progress-bar>
         <ion-toolbar>
           <ion-title>{this.tags.length} total, {this.getTagCountDone()} done ({this.getTagPercentDone() * 100}%).</ion-title>
         </ion-toolbar>
