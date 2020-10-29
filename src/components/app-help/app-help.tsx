@@ -21,31 +21,31 @@ export class AppHelp {
             <ion-button color="danger" slot="start">
               <ion-icon name="close-outline"></ion-icon>
             </ion-button>
-            <ion-label>Removes all tags.</ion-label>
+            <ion-label text-wrap>Removes all tags.</ion-label>
           </ion-item>
           <ion-item lines="none">
             <ion-button color="light" slot="start">
               <ion-icon name="refresh-outline"></ion-icon>
             </ion-button>
-            <ion-label>Sets all tags to an un-done state.</ion-label>
+            <ion-label text-wrap>Sets all tags to an un-done state.</ion-label>
           </ion-item>
           <ion-item lines="none">
             <ion-button color="success" slot="start">
               <ion-icon name="checkmark-outline"></ion-icon>
             </ion-button>
-            <ion-label>Sets all tags to a done state.</ion-label>
+            <ion-label text-wrap>Sets all tags to a done state.</ion-label>
           </ion-item>
-          <ion-item lines="none">
+          <ion-item lines="none" class="ion-text-wrap" text-wrap>
             <ion-button color="dark" slot="start">
               <ion-icon name="eye-outline"></ion-icon>
             </ion-button>
-            <ion-label>Hides / shows tags that are done.</ion-label>
+            <ion-label text-wrap>Hides / shows tags that are done.</ion-label>
           </ion-item>
           <ion-item lines="none">
             <ion-button color="primary" slot="start">
               <ion-icon name="help-outline"></ion-icon>
             </ion-button>
-            <ion-label>Shows this page.</ion-label>
+            <ion-label text-wrap>Shows this page.</ion-label>
           </ion-item>
         </ion-list>
       </ion-content>,

@@ -161,8 +161,7 @@ export class AppHome {
         <ion-list>
           <ion-item>
             <ion-icon name="add" slot="start"></ion-icon>
-            <ion-label position="floating">Tag</ion-label>
-            <ion-input inputmode="numeric" onFocus={() => this.tagList.closeSlidingItems()} ref={el => (this.inputEl = el)} onChange={() => this.addTag()} />
+            <ion-input autofocus inputmode="numeric" placeholder="Type tag" onFocus={() => this.tagList.closeSlidingItems()} ref={el => (this.inputEl = el)} onChange={() => this.addTag()} />
           </ion-item>
         </ion-list>
         <ion-list ref={el => (this.tagList = el as HTMLIonListElement)}>
@@ -189,7 +188,7 @@ export class AppHome {
       <ion-footer>
       <ion-progress-bar color="primary" value={this.getTagPercentDone()}></ion-progress-bar>
         <ion-toolbar>
-          <ion-title>{this.tags.length} total, {this.getTagCountDone()} done ({this.getTagPercentDone() * 100}%).</ion-title>
+          <ion-title size="small">{this.getTagCountDone()} of {this.tags.length} done ({this.getTagPercentDone() * 100}%).</ion-title>
         </ion-toolbar>
       </ion-footer>,
     ];
