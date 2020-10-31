@@ -1,5 +1,5 @@
 import { Component, State, Watch, h } from '@stencil/core';
-import { alertController } from '@ionic/core';
+import { alertController, popoverController } from '@ionic/core';
 import { TaggedItem } from '../../interfaces/tagged-item';
 import { AppSettings, TagVisibility } from '../../interfaces/app-settings';
 import { slugify } from '../../helpers/utils';
@@ -14,6 +14,29 @@ export class AppHome {
 
   tagList: HTMLIonListElement;
   inputEl: HTMLIonInputElement;
+  notesPopover: HTMLIonPopoverElement;
+
+  async presentNotesPopover(ev:any, tag: TaggedItem) {
+    this.notesPopover = await popoverController.create({
+      component: 'notes-popover',
+      event: ev,
+      translucent: true,
+      componentProps: {
+        tag: tag
+      }
+    });
+
+    this.notesPopover.addEventListener('noteSaved', (e: any) => {
+      const { note } = e.detail;
+      tag.note = note;
+      this.tags = [...this.tags];
+
+      this.notesPopover.dismiss().then(() => {
+        this.notesPopover = null;
+      })
+    })
+    return await this.notesPopover.present();
+  }
 
   async presentAlertConfirm() {
     const alert = await alertController.create({
@@ -161,15 +184,16 @@ export class AppHome {
         <ion-list>
           <ion-item>
             <ion-icon name="add" slot="start"></ion-icon>
-            <ion-input autofocus inputmode="numeric" placeholder="Type tag" onFocus={() => this.tagList.closeSlidingItems()} ref={el => (this.inputEl = el)} onChange={() => this.addTag()} />
+            <ion-input autofocus inputmode="numeric" type="text" placeholder="Type tag" onFocus={() => this.tagList.closeSlidingItems()} ref={el => (this.inputEl = el)} onChange={() => this.addTag()} />
           </ion-item>
         </ion-list>
         <ion-list ref={el => (this.tagList = el as HTMLIonListElement)}>
           {this.tags.map(tag => (
             <ion-item-sliding hidden={tag.done && this.settings.visibility === TagVisibility.DoneOnly}>
               <ion-item lines="full">
-                <ion-label>{tag.tag}</ion-label>
+                <ion-button onClick={(ev) => this.presentNotesPopover(ev, tag)} fill="clear" strong={true} style={{['--color']: 'black'}}>{tag.tag}</ion-button>
                 {tag.done ? <ion-icon slot="start" color="success" name="checkmark-outline"></ion-icon> : <ion-icon slot="start" color="light" name="checkmark-outline"></ion-icon>}
+                {tag.note ? <ion-icon onClick={(ev) => this.presentNotesPopover(ev, tag)} slot="end" name="chatbubble-ellipses-outline"></ion-icon> : null}
               </ion-item>
               <ion-item-options side="start">
                 <ion-item-option onClick={() => this.removeTag(tag.tag)} color="danger">

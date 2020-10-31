@@ -3,6 +3,8 @@ export function sayHello() {
 }
 
 export function slugify(str) {
+  if (!str) return str;
+
   str = str.replace(/^\s+|\s+$/g, '');
     str = str.toLowerCase();
     var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";

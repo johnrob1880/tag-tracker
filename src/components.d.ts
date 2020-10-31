@@ -5,6 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { TaggedItem } from "./interfaces/tagged-item";
 export namespace Components {
     interface AppHelp {
     }
@@ -15,6 +16,9 @@ export namespace Components {
     interface AppSettingsPage {
     }
     interface ConfirmRefreshModal {
+    }
+    interface NotesPopover {
+        "tag": TaggedItem;
     }
 }
 declare global {
@@ -48,12 +52,19 @@ declare global {
         prototype: HTMLConfirmRefreshModalElement;
         new (): HTMLConfirmRefreshModalElement;
     };
+    interface HTMLNotesPopoverElement extends Components.NotesPopover, HTMLStencilElement {
+    }
+    var HTMLNotesPopoverElement: {
+        prototype: HTMLNotesPopoverElement;
+        new (): HTMLNotesPopoverElement;
+    };
     interface HTMLElementTagNameMap {
         "app-help": HTMLAppHelpElement;
         "app-home": HTMLAppHomeElement;
         "app-root": HTMLAppRootElement;
         "app-settings-page": HTMLAppSettingsPageElement;
         "confirm-refresh-modal": HTMLConfirmRefreshModalElement;
+        "notes-popover": HTMLNotesPopoverElement;
     }
 }
 declare namespace LocalJSX {
@@ -67,12 +78,17 @@ declare namespace LocalJSX {
     }
     interface ConfirmRefreshModal {
     }
+    interface NotesPopover {
+        "onNoteSaved"?: (event: CustomEvent<TaggedItem>) => void;
+        "tag"?: TaggedItem;
+    }
     interface IntrinsicElements {
         "app-help": AppHelp;
         "app-home": AppHome;
         "app-root": AppRoot;
         "app-settings-page": AppSettingsPage;
         "confirm-refresh-modal": ConfirmRefreshModal;
+        "notes-popover": NotesPopover;
     }
 }
 export { LocalJSX as JSX };
@@ -84,6 +100,7 @@ declare module "@stencil/core" {
             "app-root": LocalJSX.AppRoot & JSXBase.HTMLAttributes<HTMLAppRootElement>;
             "app-settings-page": LocalJSX.AppSettingsPage & JSXBase.HTMLAttributes<HTMLAppSettingsPageElement>;
             "confirm-refresh-modal": LocalJSX.ConfirmRefreshModal & JSXBase.HTMLAttributes<HTMLConfirmRefreshModalElement>;
+            "notes-popover": LocalJSX.NotesPopover & JSXBase.HTMLAttributes<HTMLNotesPopoverElement>;
         }
     }
 }
