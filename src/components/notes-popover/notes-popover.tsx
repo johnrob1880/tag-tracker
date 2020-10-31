@@ -34,7 +34,7 @@ export class NotesPopover {
   render() {
     return (<ion-list class="ion-padding">
         <ion-item>
-          <ion-input placeholder="Enter a note" onKeyUp={(e) => this.handleEnterKey(e)} onInput={(e) => this.updateNote(e)} value={this.tag.note ? this.tag.note : ''} />
+          <ion-textarea placeholder="Enter a note" onInput={(e) => this.updateNote(e)} value={this.tag.note ? this.tag.note : ''} />
         </ion-item>
         <ion-item lines="none">
           <ion-button slot="start" color="danger" onClick={() => this.clearNote()}>Clear</ion-button>
