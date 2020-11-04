@@ -191,7 +191,7 @@ export class AppHome {
           {this.tags.map(tag => (
             <ion-item-sliding hidden={tag.done && this.settings.visibility === TagVisibility.DoneOnly}>
               <ion-item lines="full">
-                <ion-button onClick={(ev) => this.presentNotesPopover(ev, tag)} fill="clear" strong={true} style={{['--color']: 'black'}}>{tag.tag}</ion-button>
+                <ion-button size="large" onClick={(ev) => this.presentNotesPopover(ev, tag)} fill="clear" strong={true} style={{['--color']: 'black'}}>{tag.tag}</ion-button>
                 {tag.done ? <ion-icon slot="start" color="success" name="checkmark-outline"></ion-icon> : <ion-icon slot="start" color="light" name="checkmark-outline"></ion-icon>}
                 {tag.note ? <ion-icon onClick={(ev) => this.presentNotesPopover(ev, tag)} slot="end" name="chatbubble-ellipses-outline"></ion-icon> : null}
               </ion-item>
