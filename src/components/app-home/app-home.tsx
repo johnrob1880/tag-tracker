@@ -74,13 +74,15 @@ export class AppHome {
       this.settings = {
         itemSingular: 'Tag',
         itemPlural: 'Tags',
+        fontSize: 16,
         ...JSON.parse(localStorage.getItem('app_settings')) as AppSettings
       };
     } else {
       this.settings = {
         visibility: TagVisibility.All,
         itemSingular: 'Tag',
-        itemPlural: 'Tags'
+        itemPlural: 'Tags',
+        fontSize: 16
       };
     }
   }
@@ -151,6 +153,13 @@ export class AppHome {
     };
   }
 
+  setFontSize(amount) {
+    this.settings = {
+      ...this.settings,
+      fontSize: this.settings.fontSize ? this.settings.fontSize + amount : 16
+    }
+  }
+
   render() {
     return [
       <ion-header>
@@ -191,7 +200,7 @@ export class AppHome {
           {this.tags.map(tag => (
             <ion-item-sliding hidden={tag.done && this.settings.visibility === TagVisibility.DoneOnly}>
               <ion-item lines="full">
-                <ion-button size="large" onClick={(ev) => this.presentNotesPopover(ev, tag)} fill="clear" strong={true} style={{['--color']: 'black'}}>{tag.tag}</ion-button>
+                <ion-button style={{['--color']: 'black', 'fontSize': `${this.settings.fontSize ? this.settings.fontSize : 16}px`}} onClick={(ev) => this.presentNotesPopover(ev, tag)} fill="clear" strong={true}>{tag.tag}</ion-button>
                 {tag.done ? <ion-icon slot="start" color="success" name="checkmark-outline"></ion-icon> : <ion-icon slot="start" color="light" name="checkmark-outline"></ion-icon>}
                 {tag.note ? <ion-icon onClick={(ev) => this.presentNotesPopover(ev, tag)} slot="end" name="chatbubble-ellipses-outline"></ion-icon> : null}
               </ion-item>
@@ -212,7 +221,17 @@ export class AppHome {
       <ion-footer>
       <ion-progress-bar color="primary" value={this.getTagPercentDone()}></ion-progress-bar>
         <ion-toolbar>
-          <ion-title size="small">{this.getTagCountDone()} of {this.tags.length} done ({this.getTagPercentDone() * 100}%).</ion-title>
+            <ion-buttons slot="start">
+                <ion-button onClick={() => this.setFontSize(+1)}>
+                  <ion-icon slot="icon-only" name="add-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+          <ion-title style={{'paddingTop': '16px'}} size="small">{this.getTagCountDone()} of {this.tags.length} done ({this.getTagPercentDone() * 100}%).</ion-title>
+          <ion-buttons slot="end">
+                <ion-button onClick={() => this.setFontSize(-1)}>
+                  <ion-icon slot="icon-only" name="remove-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
         </ion-toolbar>
       </ion-footer>,
     ];
